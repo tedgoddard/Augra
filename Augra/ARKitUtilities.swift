@@ -22,7 +22,7 @@ extension UIImage {
         guard let ciImage = CIImage(image: self) else {
             return nil
         }
-        return UIImage(ciImage: ciImage.applyingFilter("CIColorInvert", withInputParameters: nil))
+        return UIImage(ciImage: ciImage.applyingFilter("CIColorInvert"))
     }
     
     static func composeButtonImage(from thumbImage: UIImage, alpha: CGFloat = 1.0) -> UIImage {
@@ -451,11 +451,10 @@ extension ARSCNView {
         let maxAngle = ((maxAngleInDeg / 180) * Float.pi)
         
         let points = features.points
-        
-        for i in 0...features.count {
+        for i in 0...points.count {
             
-            let feature = points.advanced(by: Int(i))
-            let featurePos = SCNVector3(feature.pointee)
+            let feature = points[i]
+            let featurePos = SCNVector3(feature)
             
             let originToFeature = featurePos - ray.origin
             
@@ -527,10 +526,10 @@ extension ARSCNView {
         // Determine the point from the whole point cloud which is closest to the hit test ray.
         var closestFeaturePoint = origin
         var minDistance = Float.greatestFiniteMagnitude
-        
-        for i in 0...features.count {
-            let feature = points.advanced(by: Int(i))
-            let featurePos = SCNVector3(feature.pointee)
+
+        for i in 0...points.count {
+            let feature = points[i]
+            let featurePos = SCNVector3(feature)
             
             let originVector = origin - featurePos
             let crossProduct = originVector.cross(direction)
