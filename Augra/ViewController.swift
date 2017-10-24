@@ -107,9 +107,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
 
     func overlayShape(rectangles: [VNRectangleObservation]) {
         view.layer.sublayers = nil
-        for rectangle in rectangles {
-            overlayShape(rectangle: rectangle)
-        }
+//        for rectangle in rectangles {
+//            overlayShape(rectangle: rectangle)
+//        }
         if let rectangle = rectangles.first {
             overlayHandle(rectangle: rectangle)
         }
